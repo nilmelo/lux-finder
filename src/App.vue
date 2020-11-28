@@ -1,32 +1,25 @@
 <template>
   <div id="app">
-    <Navbar/>
-
     <div class="container">
-      <div class="card card-body">
+      <div class="input mt-lg-2">
         <h1>Pesquisar Usuários do GitHub</h1>
         <p class="lead">Digite um nome para encontrar usuários e repositórios</p>
         <input @keyup="getUser" id="search" type="text" class="form-control" required>
       </div>
-
+      <Profile :user="user" />
       <div class="row mt-3" v-if="user.length !== 0">
-        <div class="col-md-4">
-          <Profile :user="user" />
-        </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
           <Repo v-for="(repo,index) of repos" :key="index" :repo="repo" />
         </div>
       </div>
-      <div v-else>
-        <p>Usuário não encontrado</p>
+      <div v-else style="text-align: center;">
+        <p>Digite um usuário válido</p>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue';
 import Profile from './components/Profile.vue';
 import Repo from './components/Repo.vue';
 
@@ -46,7 +39,6 @@ export default {
     }
   },
   components: {
-    Navbar,
     Profile,
     Repo
   },
@@ -69,4 +61,59 @@ export default {
 </script>
 
 <style>
+body {
+    background-color: #fff;
+    padding-top: 3.75rem;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    color: #787878;
+}
+#profileSide {
+    background-color: #3a3431;
+}
+.input {
+  margin-top: 10%;
+}
+@media screen and (min-width: 992px) {
+    body {
+        padding-top: 0;
+        padding-left: 35%;
+    }
+    .input {
+      margin-top: 12rem;
+    }
+    #profileSide{
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        width: 33.33%;
+        height: 100vh;
+        background-image: url(assets/img/overlay.png), url(assets/img/bg.jpg);
+        background-attachment: scrool;
+        background-position: top left;
+        background-repeat: repeat, no-repeat;
+        background-size: auto, cover;
+        color: rgba(255,255,255,.5);
+        text-align: center;
+    }
+    .img-profile {
+        max-width: 100%;
+        max-height: auto;
+        margin: 2rem auto;
+    }
+    #profileSide .navbar-collapse {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: auto;
+    }
+    #profileSide .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .description {
+      padding-top: 10%;
+    }
+}
 </style>

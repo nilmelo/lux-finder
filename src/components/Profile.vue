@@ -1,37 +1,52 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img :src="user.avatar_url" alt="" class="card-img-top">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            Organização:
-                            <span class="badge badge-success">{{ user.company }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            Localização:
-                            <span class="badge badge-primary">{{ user.location }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            Seguidores:
-                            <span class="badge badge-info">{{ user.followers }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            Repositórios:
-                            <span class="badge badge-info">{{ user.public_repos }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            Stars:
-                            <span class="badge badge-info">{{ user.public_gists }}</span>
-                        </li>
-                    </ul>
-                    <div class="card-body">
-                        <a :href="user.html_url" target="_blank" class="btn btn-success btn-block">Ver perfil</a>
-                    </div>
-                </div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="profileSide">
+            <a class="navbar-brand" href="#topo">
+                <span class="d-none d-lg-block">
+                    <img :src="user.avatar_url" class="rounded-circle img-profile">
+                </span>
+            </a>
+            <div class="navbar-collapse" id="profile" v-if="user.length !== 0">
+                <ul class="navbar-nav">
+                    <li>
+                        Nome:
+                        <span class="badge badge-warning">{{ user.name }}</span>
+                    </li>
+                    <li>
+                        Organização:
+                        <span class="badge badge-success">{{ user.company }}</span>
+                    </li>
+                    <li>
+                        Localização:
+                        <span class="badge badge-primary">{{ user.location }}</span>
+                    </li>
+                    <li>
+                        Seguidores:
+                        <span class="badge badge-info">{{ user.followers }}</span>
+                    </li>
+                    <li>
+                        Repositórios:
+                        <span class="badge badge-info">{{ user.public_repos }}</span>
+                    </li>
+                    <li>
+                        Stars:
+                        <span class="badge badge-info">{{ user.public_gists }}</span>
+                    </li>
+                    <li>
+                        <a :href="user.html_url" target="_blank" class="nav-link icon-link">
+                            <span class="sr-only">GitHub</span>
+                            <i class="fab fa-github-square" style="font-size: 4rem;"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
+            <div v-else class="d-none d-lg-block description">
+                <p>Desafio para seleção Front-End com VueJS</p>
+                <p>Nilson Melo</p>
+                <p>2020</p>
+            </div>
+        </nav>
     </div>
 </template>
 
