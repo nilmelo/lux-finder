@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
+      <router-view></router-view>
       <div class="input mt-lg-2">
         <h1>Pesquisar Usuários do GitHub</h1>
         <p class="lead">Digite um nome para encontrar usuários e repositórios</p>
@@ -49,12 +50,40 @@ export default {
 
       this.$http.get(
         `${url}/${user}?client_id=${client_id}&client_secret=${client_secret}`
-      ).then(({data}) => (this.user = data) );
+      )
+        .then(({data}) => (this.user = data) )
+        .then(response => {
+        }, response => {
+          switch (response.status) {
+            case 403:
+              if(!(this.$router.currentRoute.path === '/erro')){
+                this.$router.push('erro');
+              }
+              break;
+            case 404:
+              this.user = [];
+              break;
+          }
+        });
 
       this.$http.get(
           `${url}/${user}/repos?per_page=${count}&sort=${sort}&client_id=${client_id}&client_secret=${client_secret}`
         )
-        .then(({ data }) => (this.repos = data));
+        .then(({ data }) => (this.repos = data))
+        .then(response => {
+        }, response => {
+          switch (response.status) {
+            case 403:
+              if(!(this.$router.currentRoute.path === '/erro')){
+                this.$router.push('erro');
+              }
+              break;
+            case 404:
+              this.repos = [];
+              break;
+          }
+        });
+
     }
   }
 };
