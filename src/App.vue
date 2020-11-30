@@ -21,6 +21,12 @@
 </template>
 
 <script>
+/**
+ * Este é o componente padrão, componente vue que será mostrado
+ * This is the default component, vue component that is shown
+ * @displayName App Component
+ */
+
 import Profile from './components/Profile.vue';
 import Repo from './components/Repo.vue';
 
@@ -32,19 +38,27 @@ export default {
         url: 'https://api.github.com/users',
         client_id: 'f787b8a1bc663c9c4a81',
         client_secret: '63128dca20479dc55c1931aae2713a600bf84200',
-        count: 8,
-        sort: 'created: asc'
+        count: 10000,
+        sort: 'stars-desc'
       },
       user: [],
       repos: []
     }
   },
   components: {
+    /**
+     * Componentes necessário para complemento da aplicação: Profile onde é organizado os dados de usuário, e o Repo onde é organizado os dados dos repositórios desse usuário
+     * Components required to complement the application: Profile where user data is organized, and the Repo where data from that user's repositories are organized
+     */
     Profile,
     Repo
   },
   methods: {
     getUser(e){
+      /**
+       * A cada tecla pressionada do teclado o método getUser é emitido
+       * Each key pressed on the keyboard, the method getUser is emitted
+       */
       const user = e.target.value;
       const { url, client_id, client_secret, count, sort } = this.github;
 
@@ -67,7 +81,7 @@ export default {
         });
 
       this.$http.get(
-          `${url}/${user}/repos?per_page=${count}&sort=${sort}&client_id=${client_id}&client_secret=${client_secret}`
+          `${url}/${user}/repos?per_page=${count}&q=sort=${sort}&order=desc&client_id=${client_id}&client_secret=${client_secret}`
         )
         .then(({ data }) => (this.repos = data))
         .then(response => {

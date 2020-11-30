@@ -4,10 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
+    "postinstall": "npm run build",
+    "start": "node server.js",
+    "styleguide": "vue-cli-service styleguidist",
+    "styleguide:build": "vue-cli-service styleguidist:build"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "vue": "^2.6.11",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.4.9"
@@ -15,7 +21,10 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-cli-plugin-styleguidist": "~4.34.1",
+    "vue-styleguidist": "^4.34.1",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^5.9.0"
   },
   "browserslist": [
     "> 1%",
